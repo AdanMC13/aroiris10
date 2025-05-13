@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCOÍRIS Desayunos Sorpresa</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body class="bg-white text-gray-800">
+
+  <header class="text-center py-6 bg-gradient-to-r from-pink-400 via-yellow-400 to-green-400 text-white shadow-md">
+    <h1 class="text-4xl font-bold">Desayunos Sorpresa ARCOÍRIS</h1>
+    <p class="text-lg mt-2">¡Desayunos especiales para personas especiales!</p>
+  </header>
+
+  <section class="p-4 max-w-4xl mx-auto">
+    <h2 class="text-2xl font-semibold mb-4">1. Elige tu desayuno</h2>
+    <select id="tipoDesayuno" class="w-full p-2 border rounded mb-4">
+      <option value="Romántico - $350">Romántico - $350 MXN</option>
+      <option value="Cumpleaños - $400">Cumpleaños - $400 MXN</option>
+      <option value="Infantil - $320">Infantil - $320 MXN</option>
+    </select>
+  </section>
+
+  <section class="p-4 max-w-4xl mx-auto">
+    <h2 class="text-2xl font-semibold mb-4">2. Personaliza tu pedido</h2>
+    <form id="pedidoForm" class="space-y-4">
+      <input type="text" placeholder="Nombre del destinatario" id="destinatario" class="w-full p-2 border rounded" required>
+      <input type="text" placeholder="Mensaje personalizado" id="mensaje" class="w-full p-2 border rounded">
+      <input type="date" id="fecha" class="w-full p-2 border rounded" required>
+      <input type="time" id="hora" class="w-full p-2 border rounded" required>
+      <input type="text" placeholder="Dirección de entrega" id="direccion" class="w-full p-2 border rounded" required>
+      <input type="tel" placeholder="Tu número de teléfono" id="telefono" class="w-full p-2 border rounded" required>
+
+      <div>
+        <h3 class="font-semibold">Extras:</h3>
+        <label class="block"><input type="checkbox" class="extra" value="Globo 🎈"> Globo 🎈</label>
+        <label class="block"><input type="checkbox" class="extra" value="Taza personalizada ☕"> Taza personalizada ☕</label>
+        <label class="block"><input type="checkbox" class="extra" value="Peluche 🧸"> Peluche 🧸</label>
+        <label class="block"><input type="checkbox" class="extra" value="Tarjeta especial 💌"> Tarjeta especial 💌</label>
+      </div>
+
+      <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600">Enviar pedido por WhatsApp</button>
+    </form>
+  </section>
+
+  <section class="p-4 max-w-4xl mx-auto">
+    <h2 class="text-2xl font-semibold mb-2">3. Resumen del pedido</h2>
+    <pre id="resumenPedido" class="p-4 bg-gray-100 rounded text-sm whitespace-pre-wrap"></pre>
+  </section>
+
+  <footer class="text-center text-sm text-gray-600 mt-8 py-4">
+    &copy; 2025 Desayunos Arcoíris | Tu sorpresa empieza con nosotros.
+  </footer>
+
+  <script>
+    document.getElementById('pedidoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      let tipoDesayuno = document.getElementById("tipoDesayuno").value;
+      let destinatario = document.getElementById("destinatario").value;
+      let mensaje = document.getElementById("mensaje").value;
+      let fecha = document.getElementById("fecha").value;
+      let hora = document.getElementById("hora").value;
+      let direccion = document.getElementById("direccion").value;
+      let telefono = document.getElementById("telefono").value;
+
+      let extras = Array.from(document.querySelectorAll(".extra:checked")).map(e => e.value).join(", ");
+
+      let resumen = `🌈 *Pedido ARCOÍRIS* 🌈\n` +
+                    `Desayuno: ${tipoDesayuno}\n` +
+                    `Para: ${destinatario}\n` +
+                    `Mensaje: ${mensaje}\n` +
+                    `Entrega: ${fecha} a las ${hora}\n` +
+                    `Dirección: ${direccion}\n` +
+                    `Teléfono: ${telefono}\n` +
+                    `Extras: ${extras}`;
+
+      document.getElementById("resumenPedido").textContent = resumen;
+
+      let url = `https://wa.me/525547879563?text=${encodeURIComponent(resumen)}`;
+      window.open(url, '_blank');
+    });
+  </script>
+</body>
+</html>
